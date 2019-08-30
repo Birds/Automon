@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 
 user = "Automon"
 pwd = "password"
+teamname = "teamname"
 default_timeout = 10
 team_stream = """
 Donphan @ Fairium Z  
@@ -57,18 +58,21 @@ def add_team_if_missing(team_string):
         title_box_area = driver.find_element_by_class_name("textbox")
         for i in range(0, len("Untitled 1")):
             title_box_area.send_keys(Keys.BACK_SPACE)
-        title_box_area.send_keys("teamname")
+        title_box_area.send_keys(teamname)
         text_box_area = driver.find_element_by_xpath(
-        "//div[@id='room-teambuilder']/div[@class='teamwrapper']/div[@class='teamedit']/textarea[@class='textbox']").send_keys(
-        team_stream)
+            "//div[@id='room-teambuilder']/div[@class='teamwrapper']/div[@class='teamedit']/textarea[@class='textbox']").send_keys(
+            team_stream)
         save_import_button = driver.find_element_by_name("saveImport").click()
 
 
-try:
-    driver = webdriver.Chrome(executable_path=r'C:\Users\leozh\Downloads\chromedriver.exe')
-except WebDriverException:
-    driver = webdriver.Chrome(executable_path=r'C:\Users\...\chromedriver.exe')
+def load_driver():
+    try:
+        return webdriver.Chrome(executable_path=r'C:\Users\leozh\Downloads\chromedriver.exe')
+    except WebDriverException:
+        return webdriver.Chrome(executable_path=r'C:\Users\...\chromedriver.exe')
 
+
+driver = load_driver()
 driver.get("https://play.pokemonshowdown.com")
 assert "Showdown" in driver.title
 
