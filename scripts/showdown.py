@@ -60,20 +60,27 @@ def add_team_if_missing(team_string):
             title_box_area.send_keys(Keys.BACK_SPACE)
         title_box_area.send_keys("teamname")
         text_box_area = driver.find_element_by_xpath(
-        "//div[@id='room-teambuilder']/div[@class='teamwrapper']/div[@class='teamedit']/textarea[@class='textbox']").send_keys(
-        team_stream)
+            "//div[@id='room-teambuilder']/div[@class='teamwrapper']/div[@class='teamedit']/textarea[@class='textbox']").send_keys(
+            team_stream)
         save_import_button = driver.find_element_by_name("saveImport").click()
+        # now select format
+        teambuilder_format_button = driver.find_element_by_class_name(
+            "select.formatselect.teambuilderformatselect").click()
+        onevone_format = driver.find_element_by_xpath(r"//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[12]/button").click()
+        driver.find_element_by_class_name("fa.fa-home").click()
 
 
 def select_format():
-    driver.get_element_by_name("format").click()
-    driver.get_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[14]/button").click()
+    driver.find_element_by_name("format").click()
+    driver.find_element_by_name("//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[14]/button").click()
+
 
 def start_game():
     select_format()
-    driver.get_element_by_name("team").click()
-    driver.get_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu']/li[5]/button[@class='button']").click()
-    driver.get_element_by_name("search").click()
+    driver.get("team").click()
+    driver.find_element_by_name("//div[@class='ps-popup']/ul[@class='popupmenu']/li[5]/button[@class='button']").click()
+    driver.find_element_by_name("search").click()
+
 
 def load_driver():
     try:
@@ -111,3 +118,5 @@ password_submit = driver.find_element_by_xpath("//form/p[@class='buttonbar'][1]/
 password_submit.send_keys(Keys.ENTER)
 
 add_team_if_missing(team_stream)
+
+start_game()
