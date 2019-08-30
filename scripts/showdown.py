@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.common.exceptions import WebDriverException, ElementNotInteractableException
+from selenium.common.exceptions import WebDriverException, ElementNotInteractableException, NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -56,7 +56,7 @@ def add_team_if_missing(team_string):
         new_team_button = driver.find_element_by_name("newTop").click()
         import_from_text_button = driver.find_element_by_name("import").click()
         title_box_area = driver.find_element_by_class_name("textbox")
-        for i in range(0, len("Untitled 1")):
+        for i in range(0, len(title_box_area.text)):
             title_box_area.send_keys(Keys.BACK_SPACE)
         title_box_area.send_keys("teamname")
         text_box_area = driver.find_element_by_xpath(
@@ -66,19 +66,25 @@ def add_team_if_missing(team_string):
         # now select format
         teambuilder_format_button = driver.find_element_by_class_name(
             "select.formatselect.teambuilderformatselect").click()
-        onevone_format = driver.find_element_by_xpath(r"//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[12]/button").click()
+        onevone_format = driver.find_element_by_xpath(
+            r"//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[12]/button").click()
         driver.find_element_by_class_name("fa.fa-home").click()
 
 
 def start_game():
-    #driver.get("https://play.pokemonshowdown.com")
+    try:  # will occur when multiple games
+        add_game_button = driver.find_element_by_xpath(
+            r"//div[@class='mainmenuwrapper']/div[@class='leftmenu']/div[@class='mainmenu']/div[@class='menugroup'][1]/form[@class='battleform']/p[@class='buttonbar']/button").click()
+    except NoSuchElementException:
+        pass
+    # driver.get("https://play.pokemonshowdown.com")
     driver.find_element_by_name("format").click()
     driver.find_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[14]/button").click()
     driver.find_element_by_name("team").click()
-    driver.find_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu']/li[5]/button[@class='button']").click()
+    driver.find_element_by_xpath(
+        "//div[@class='ps-popup']/ul[@class='popupmenu']/li[5]/button[@class='button']").click()
     driver.find_element_by_class_name("fa.fa-home").click()
     driver.find_element_by_name("search").click()
-
 
 
 def load_driver():
