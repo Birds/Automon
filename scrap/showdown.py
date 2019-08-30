@@ -2,38 +2,38 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.keys import Keys
 
 user = "Automon"
 pwd = "password"
 
-driver = webdriver.Chrome(executable_path=r'C:\Users\leozh\Downloads\chromedriver.exe')
+driver = webdriver.Chrome(executable_path = r'C:\Users\Triton\Documents\chromedriver.exe')
 driver.get("https://play.pokemonshowdown.com")
 assert "Showdown" in driver.title
-# try:
-#    element = WebDriverWait(driver, 10).until(
-#        EC.text_to_be_present_in_element_value((By.Name, "login"))
-#    )
-# finally:
 
-element = WebDriverWait(driver, 20).until(
+#Choosing Name Button Clicker
+choosename_submit = WebDriverWait(driver, 20).until(
     EC.presence_of_element_located((By.NAME, "login"))
 )
+choosename_submit.click()
 
-element.click()
-
-choose_name_element = WebDriverWait(driver, 20).until(
+#Username Autofill and Submit
+username_input = WebDriverWait(driver, 20).until(
     EC.presence_of_element_located((By.NAME, "username"))
 )
 
-choose_name_element.send_keys(user)
-# element.send_keys(Keys.ENTER)
+username_input.send_keys(user)
+username_submit = driver.find_element_by_xpath("//form/p[@class='buttonbar']/button[1]")
+username_submit.send_keys(Keys.ENTER)
+
+#Password Autofill and Submit
+password_input = WebDriverWait(driver, 20).until(
+    EC.presence_of_element_located((By.NAME, "password"))
+)
+
+password_input.send_keys(pwd)
+password_submit = driver.find_element_by_xpath("//form/p[@class='buttonbar'][1]/button[1]")
+password_submit.send_keys(Keys.ENTER)
 
 
-# driver.implicitly_wait(10) #old
-# loginBox = driver.find_element_by_name("login").click()
-# elem = driver.find_element_by_id("email")
-# elem.send_keys(user)
-# elem = driver.find_element_by_id("pass")
-# elem.send_keys(pwd)
-# elem.send_keys(Keys.RETURN)
 # driver.close()
