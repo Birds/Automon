@@ -62,12 +62,22 @@ def add_team_if_missing(team_string):
         "//div[@id='room-teambuilder']/div[@class='teamwrapper']/div[@class='teamedit']/textarea[@class='textbox']").send_keys(
         team_stream)
         save_import_button = driver.find_element_by_name("saveImport").click()
-
+        
+        
+def select_format():
+    driver.get_element_by_name("format").click()
+    driver.get_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[14]/button").click()
+    
+def start_game():
+    select_format()
+    driver.get_element_by_name("team").click()
+    driver.get_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu']/li[5]/button[@class='button']").click()
+    driver.get_element_by_name("search").click()
 
 try:
     driver = webdriver.Chrome(executable_path=r'C:\Users\leozh\Downloads\chromedriver.exe')
 except WebDriverException:
-    driver = webdriver.Chrome(executable_path=r'C:\Users\...\chromedriver.exe')
+    driver = webdriver.Chrome(executable_path=r'C:\Users\Triton\Documents\chromedriver.exe')
 
 driver.get("https://play.pokemonshowdown.com")
 assert "Showdown" in driver.title
@@ -96,4 +106,8 @@ password_input.send_keys(pwd)
 password_submit = driver.find_element_by_xpath("//form/p[@class='buttonbar'][1]/button[1]")
 password_submit.send_keys(Keys.ENTER)
 
+
+
 add_team_if_missing(team_stream)
+
+start_game()
