@@ -58,12 +58,22 @@ def add_team_if_missing(team_string):
         title_box_area = driver.find_element_by_class_name("textbox")
         for i in range(0, len("Untitled 1")):
             title_box_area.send_keys(Keys.BACK_SPACE)
-        title_box_area.send_keys(teamname)
+        title_box_area.send_keys("teamname")
         text_box_area = driver.find_element_by_xpath(
-            "//div[@id='room-teambuilder']/div[@class='teamwrapper']/div[@class='teamedit']/textarea[@class='textbox']").send_keys(
-            team_stream)
+        "//div[@id='room-teambuilder']/div[@class='teamwrapper']/div[@class='teamedit']/textarea[@class='textbox']").send_keys(
+        team_stream)
         save_import_button = driver.find_element_by_name("saveImport").click()
 
+
+def select_format():
+    driver.get_element_by_name("format").click()
+    driver.get_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[14]/button").click()
+
+def start_game():
+    select_format()
+    driver.get_element_by_name("team").click()
+    driver.get_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu']/li[5]/button[@class='button']").click()
+    driver.get_element_by_name("search").click()
 
 def load_driver():
     try:
