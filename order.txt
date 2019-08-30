@@ -1,0 +1,13 @@
+go to play.pokemonshowdown.com
+login with Automon@password
+switch to 1v1 gamemode
+(later: import team)
+click start
+wait for game to start
+select 1 mon
+
+while game not done
+wait for turn
+when turn, select a possible move
+
+
