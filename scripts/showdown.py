@@ -10,15 +10,14 @@ pwd = "password"
 teamname = "teamname"
 default_timeout = 10
 team_stream = """
-Donphan @ Fairium Z  
-Ability: Sturdy  
-EVs: 248 HP / 140 Atk / 120 Def  
-Relaxed Nature  
-IVs: 17 Spe  
-- Play Rough  
-- Earthquake  
-- Ice Shard  
-- Counter  
+Porygon-Z @ Choice Scarf
+Ability: Adaptability
+Nature: Modest
+EVs: 4 HP / 252 SpA / 252 Spe
+- Dark Pulse
+- Hyper Beam
+- Ice Beam
+- Thunderbolt
 
 Serperior @ Leftovers  
 Ability: Contrary  
