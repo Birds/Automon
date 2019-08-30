@@ -70,23 +70,22 @@ def add_team_if_missing(team_string):
         driver.find_element_by_class_name("fa.fa-home").click()
 
 
-def select_format():
-    driver.find_element_by_name("format").click()
-    driver.find_element_by_name("//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[14]/button").click()
-
-
 def start_game():
-    select_format()
-    driver.get("team").click()
-    driver.find_element_by_name("//div[@class='ps-popup']/ul[@class='popupmenu']/li[5]/button[@class='button']").click()
+    #driver.get("https://play.pokemonshowdown.com")
+    driver.find_element_by_name("format").click()
+    driver.find_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu'][1]/li[14]/button").click()
+    driver.find_element_by_name("team").click()
+    driver.find_element_by_xpath("//div[@class='ps-popup']/ul[@class='popupmenu']/li[5]/button[@class='button']").click()
+    driver.find_element_by_class_name("fa.fa-home").click()
     driver.find_element_by_name("search").click()
+
 
 
 def load_driver():
     try:
         return webdriver.Chrome(executable_path=r'C:\Users\leozh\Downloads\chromedriver.exe')
     except WebDriverException:
-        return webdriver.Chrome(executable_path=r'C:\Users\...\chromedriver.exe')
+        return webdriver.Chrome(executable_path=r'C:\Users\Triton\Documents\chromedriver.exe')
 
 
 driver = load_driver()
